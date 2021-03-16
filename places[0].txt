@@ -1,0 +1,24 @@
+Spīķeris
+A2-H2
+Vēja māte
+A3-A11
+Dabas māja
+C5-C14
+Karostas cietums
+D14-D19
+LOC Tenisa halle
+C3-R3
+Rožu laukums
+E5-E16
+Liepājas Lutera baznīca
+H1-H23
+Latvijas lielākās bungas
+L2-L25
+Liepājas teātris
+P3-P18
+ZIIC
+B1-E1
+Vecās ostmalas promenāde
+R2-R25
+Kristapa Porziņģa basketbola laukums
+J1-J36
