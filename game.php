@@ -16,15 +16,17 @@
     <h1 class="hidetext" align="center">BURTU JŪKLIS</h1>
     Welcome <?php echo $_GET["name"]; ?><br>
     <?php
-        $filenum = rand(0, 4);
-
+        $filenum = 0;
         $fp = fopen("places[".strval($filenum)."].txt", 'r');
         if ($fp) {
             $places = explode("\n", fread($fp, filesize("places[".strval($filenum)."].txt")));
         }
         fclose($fp);
-        $places = str_replace(" ", "-", $places);
         $table = fill();
+        $table = insertwords($table, $places);
+
+
+
         echo "
         <table class=\"table table-bordered table-dark\" style='width: 50%; margin-bottom: 10px; text-align: center;' align='center'>
         <thead>
@@ -38,50 +40,76 @@
         echo "</tr>
         </thead>
         <tbody>";
-    foreach ($table as $row) {
-        if ($row[0] != 65) { // if $row != A
-            echo "<tr>";
-            foreach($row as $col) {
-                if ($col < 65) {
-                    echo "<td><b>$col</b></td>";
+        foreach ($table as $row) {
+            if ($row[0] != 65) { // if $row != A
+                echo "<tr>";
+                foreach($row as $col) {
+                        if (intval($col) != 0) {
+                            echo "<td><b>$col</b></td>";
+                        } else {
+                            echo "<td>".$col."</td>";
+                        }
+                }
+                echo "</tr>";
+            }
+
+        }
+        echo "
+        </tbody>
+        </table>";
+        function insertwords($table, $places) {
+            $words = count($places);
+            for($i=0; $i<$words; $i+=2) {
+                list($c1, $r1, $c2, $r2) =  explode("-", $places[$i+1]);
+                $c1 = ord($c1)-64;
+                $c2 = ord($c2)-64;
+                if($c1 - $c2 > 0) {
+                    $table = insertword($table, $places[$i], $c1, $r1, 0);
+                } else if ($c1 - $c2 < 0) {
+                    $table = insertword($table, $places[$i], $c1, $r1, 2);
                 } else {
-                    echo "<td>".chr($col)."</td>";
+                    if($r1 - $r2 > 0) {
+                        $table = insertword($table, $places[$i], $c1, $r1, 1);
+                    } else {
+                        $table = insertword($table, $places[$i], $c1, $r1, 3);
+                    }
                 }
 
             }
-            echo "</tr>";
+            return $table;
         }
 
-    }
-    echo "
-    </tbody>
-    </table>";
+        function insertword($table, $place, $c1, $r1, $way){
+            $place = strtoupper($place);
+            $insert = explode(" ", $place);
+            $wlen = count($insert);
+            switch($way) {
+                case 0:
+                    for($i = 0; $i<$wlen; $i++) {
+                       $table[$r1][$c1-$i] = $insert[$i];
+                    }
+                    break;
+                case 1:
+                    for($i = 0; $i<$wlen; $i++) {
+                        $table[$r1-$i][$c1] = $insert[$i];
 
+                    }
+                    break;
+                case 2:
+                    for($i = 0; $i<$wlen; $i++) {
+                        $table[$r1][$c1 + $i] = $insert[$i];
+                    }
+                    break;
+                case 3:
+                    for($i = 0; $i<$wlen; $i++) {
+                        $table[$r1+$i][$c1] = $insert[$i];
+                    }
+                    break;
 
-
-
-
-
-        switch ($filenum) {
-            case 0:
-
-                break;
-
-            case 1:
-
-                break;
-            case 2:
-
-                break;
-            case 3:
-
-                break;
-            case 4:
-
-                break;
+            }
+            return $table;
         }
 
-        //print_r($places);
 
         function fill() {
             $table = array(array());
@@ -91,9 +119,9 @@
             for ($i=1; $i<=38; $i++) {
                 for ($j=0; $j<=20; $j++) {
                     if ($j==0) {
-                        $table[$i][$j] = $i;
+                        $table[$i][$j] = strval($i);
                     } else {
-                        $table[$i][$j] = rand(65, 90);
+                        $table[$i][$j] = chr(rand(65, 90));
                     }
 
                 }
@@ -104,6 +132,44 @@
 
     ?>
 </div>
+<div class="fixed">
+    <form id="checkform" method="post">
+        <div class="form-group">
+            <label for="Pos1">Vārda sākuma burts:</label>
+            <input type="text" name="Pos1" class="form-control" placeholder="A1..." id="Pos1" required>
+            <br>
+            <label for="Pos2">Vārda beigas burts:</label>
+            <input type="text" name="Pos2" class="form-control" placeholder="A2..." id="Pos2" required>
+            <input type="hidden" name="fileId" value="<?php echo $filenum; ?>">
+        </div>
+        <button type="submit" class="btn btn btn-outline-secondary btn-block" name="checkBtn" id="checkBtn"><h4>Pārbaudīt</h4></button>
+
+    </form>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+       $('#checkform').submit(function (e) {
+          e.preventDefault();
+          $.ajax({
+              type: "POST",
+              url: 'check.php',
+              data: $(this).serialize(),
+              success: function (response)
+              {
+                  if (jsonData.success == "1")
+                  {
+                      alert('Success!');
+                  }
+                  else
+                  {
+                      alert('Invalid word!');
+                  }
+              }
+          });
+       });
+    });
+</script>
 
 <script src="scripts/index.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>

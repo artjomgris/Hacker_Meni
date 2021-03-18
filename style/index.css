@@ -13,6 +13,7 @@ body {
     background-attachment: fixed;
     background-size: cover;
     color: white;
+
 }
 
 #header {
@@ -23,5 +24,19 @@ tr {
     line-height: 2px;
     min-height: 2px;
     height: 2px;
+}
+
+div.fixed {
+    right: 15px;
+    top: 15vh;
+    overflow-x: hidden;
+    margin: 1px;
+    position: fixed;
+    width: 300px;
+    border: 2px solid #343a40;
+    z-index: 1;
+    background: #FBEEC1;
+    color: #BC986A;
+    padding: 10px;
 }
 

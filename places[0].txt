@@ -1,24 +1,24 @@
-Spīķeris
-A2-H2
-Vēja māte
-A3-A11
-Dabas māja
-C5-C14
-Karostas cietums
-D14-D19
-LOC Tenisa halle
-C3-R3
-Rožu laukums
-E5-E16
-Liepājas Lutera baznīca
-H1-H23
-Latvijas lielākās bungas
-L2-L25
-Liepājas teātris
-P3-P18
-ZIIC
-B1-E1
-Vecās ostmalas promenāde
-R2-R25
-Kristapa Porziņģa basketbola laukums
-J1-J36
+S p Ī Ķ e r i s
+A-2-H-2
+V Ē j a - m Ā t e
+A-3-A-11
+D a b a s - m Ā j a
+C-5-C-14
+K a r o s t a s - c i e t u m s
+D-14-D-19
+L O C - T e n i s a - h a l l e
+C-3-R-3
+R o Ž u - l a u k u m s
+E-5-E-16
+L i e p Ā j a s - L u t e r a - b a z n Ī c a
+H-1-H-23
+L a t v i j a s - l i e l Ā k Ā s - b u n g a s
+L-2-L-25
+L i e p Ā j a s - t e Ā t r i s
+P-3-P-18
+Z I I C
+B-1-E-1
+V e c Ā s - o s t m a l a s - p r o m e n Ā d e
+R-2-R-25
+K r i s t a p a - P o r z i Ņ Ģ a - b a s k e t b o l a - l a u k u m s
+J-1-J-36
